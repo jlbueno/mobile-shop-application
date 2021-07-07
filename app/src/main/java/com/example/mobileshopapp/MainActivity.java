@@ -16,11 +16,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Create instance of the layout from the view.
         TabLayout tabLayout = findViewById(R.id.tab_layout);
-
-        // Set the text for each tab.
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.home_label));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.shop_label));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.cart_label));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.home_label).setIcon(R.drawable.ic_baseline_home_24));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.shop_label).setIcon(R.drawable.ic_baseline_storefront_24));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.cart_label).setIcon(R.drawable.ic_baseline_shopping_cart_24));
 
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
