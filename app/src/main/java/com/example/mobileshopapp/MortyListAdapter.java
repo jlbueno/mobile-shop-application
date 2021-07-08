@@ -1,6 +1,7 @@
 package com.example.mobileshopapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 
 public class MortyListAdapter extends RecyclerView.Adapter<MortyListAdapter.MortyViewHolder> {
 
-    class MortyViewHolder extends RecyclerView.ViewHolder {
+    class MortyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView nameView;
         final MortyListAdapter mAdapter;
 
@@ -21,6 +22,23 @@ public class MortyListAdapter extends RecyclerView.Adapter<MortyListAdapter.Mort
             super(itemView);
             nameView = itemView.findViewById(R.id.shop_item);
             this.mAdapter = adapter;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+            Morty element = mortyList.get(position);
+            element.setName(String.format("Clicked! Morty %d", position));
+            mortyList.set(position, element);
+            mAdapter.notifyDataSetChanged();
+
+            Context context = v.getContext();
+
+            Intent intent = new Intent(context, MortyDetail.class);
+            intent.putExtra("mortyObject", element);
+            context.startActivity(intent);
         }
     }
 
@@ -28,7 +46,7 @@ public class MortyListAdapter extends RecyclerView.Adapter<MortyListAdapter.Mort
 
     private LayoutInflater inflater;
 
-    public MortyListAdapter(Context context,LinkedList<Morty> mortyList) {
+    public MortyListAdapter(Context context, LinkedList<Morty> mortyList) {
         inflater = LayoutInflater.from(context);
         this.mortyList = mortyList;
     }
@@ -43,7 +61,7 @@ public class MortyListAdapter extends RecyclerView.Adapter<MortyListAdapter.Mort
     @Override
     public void onBindViewHolder(@NonNull MortyListAdapter.MortyViewHolder holder, int position) {
         Morty currentItem = mortyList.get(position);
-        holder.nameView.setText(String.format("%s: %d",currentItem.getName(), currentItem.getPrice()));
+        holder.nameView.setText(String.format("%s: %d", currentItem.getName(), currentItem.getPrice()));
     }
 
     @Override

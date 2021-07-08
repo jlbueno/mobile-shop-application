@@ -1,6 +1,8 @@
 package com.example.mobileshopapp;
 
-public class Morty {
+import java.io.Serializable;
+
+public class Morty implements Serializable {
     private String name;
     private int price;
 
@@ -15,6 +17,10 @@ public class Morty {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
