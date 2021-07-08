@@ -8,4 +8,6 @@
     <string name="decrement_label">-</string>
     <string name="increment_label">+</string>
     <string name="default_count">0</string>
+    <string name="add_to_cart_label">Add to Cart</string>
+    <string name="remove_from_cart_label">Remove from Cart</string>
 </resources>

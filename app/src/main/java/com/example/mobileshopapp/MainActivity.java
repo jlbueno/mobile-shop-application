@@ -7,7 +7,30 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static ArrayList<MortyListAdapter.MortyViewHolder> userCart = new ArrayList<>();
+
+    public static void addItemToCart(MortyListAdapter.MortyViewHolder item) {
+        System.out.println(String.format("Added: %s", item.getItemName()));
+        userCart.add(item);
+        viewCartItems();
+    }
+
+    public static void removeItemFromCart(MortyListAdapter.MortyViewHolder item) {
+        System.out.println(String.format("Removed: %s", item.getItemName()));
+        userCart.remove(item);
+    }
+
+    public static void viewCartItems() {
+        for(MortyListAdapter.MortyViewHolder item: userCart) {
+            System.out.println(String.format("%s: %d", item.getItemName(), item.getItemCount()));
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
