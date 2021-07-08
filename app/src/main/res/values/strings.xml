@@ -5,4 +5,7 @@
     <string name="home_label">Home</string>
     <string name="shop_label">Shop</string>
     <string name="cart_label">Cart</string>
+    <string name="decrement_label">-</string>
+    <string name="increment_label">+</string>
+    <string name="default_count">0</string>
 </resources>
