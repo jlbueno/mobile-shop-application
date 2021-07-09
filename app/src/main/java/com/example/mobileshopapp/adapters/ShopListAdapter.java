@@ -1,10 +1,8 @@
 package com.example.mobileshopapp.adapters;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileshopapp.R;
 import com.example.mobileshopapp.models.Shop;
-import com.example.mobileshopapp.models.ShopItem;
 
 
 import java.util.ArrayList;
@@ -49,7 +46,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
     @NonNull
     @Override
     public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_recycler_view, parent, false);
         return new ShopViewHolder(view);
     }
 

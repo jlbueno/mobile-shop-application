@@ -14,4 +14,17 @@ public class Shop implements Serializable {
     public String getName() {
         return name;
     }
+
+
+    public ArrayList<ShopItem> getItems() {
+        items = new ArrayList<>();
+
+        System.out.println("Got the items");
+
+        items.add(new ShopItem("Spaghetti", 10));
+        items.add(new ShopItem("Sundae", 5));
+        items.add(new ShopItem("Bread", 3));
+        items.add(new ShopItem("Chicken", 20));
+        return items;
+    }
 }
