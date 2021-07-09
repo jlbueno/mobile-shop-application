@@ -6,6 +6,7 @@ public class ShopItem implements Serializable {
     private String name;
     private float price;
     private int numInCart;
+    private String url;
 
     public ShopItem(String name, float price) {
         this.name = name;
@@ -26,5 +27,9 @@ public class ShopItem implements Serializable {
 
     public void setNumInCart(Integer numInCart) {
         this.numInCart = numInCart;
+    }
+
+    public String getThumbnail() {
+        return url;
     }
 }

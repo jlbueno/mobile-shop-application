@@ -5,21 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mobileshopapp.adapters.ShopListAdapter;
 import com.example.mobileshopapp.models.Shop;
-import com.example.mobileshopapp.models.ShopItem;
 import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,22 +49,22 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     }
 
     private void loadShops() {
-        String json = loadJSONFromAsset(this);
+        String json = loadJSONFromAsset();
 
         Gson gson = new Gson();
         Shop[] shops = gson.fromJson(json, Shop[].class);
         shopList = new ArrayList<>(Arrays.asList(shops));
     }
 
-    public String loadJSONFromAsset(Context context) {
-        String json = null;
+    public String loadJSONFromAsset( ) {
+        String json;
         try {
             InputStream is = getResources().openRawResource(R.raw.data);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-            json = new String(buffer, "UTF-8");
+            json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
