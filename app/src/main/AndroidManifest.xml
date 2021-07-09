@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobileshopapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +18,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeliveryInformation" />
-        <activity android:name=".Cart" />
-        <activity android:name=".ShopInventory" />
+        <activity
+            android:name=".DeliveryInformation"
+            android:parentActivityName=".Cart">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DeliveryInformation" />
+        </activity>
+        <activity
+            android:name=".Cart"
+            android:parentActivityName=".ShopInventory">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Cart" />
+        </activity>
+        <activity
+            android:name=".ShopInventory"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShopInventory" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".HomePage">
