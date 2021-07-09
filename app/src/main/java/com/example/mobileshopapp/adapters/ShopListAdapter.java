@@ -20,9 +20,11 @@ import java.util.ArrayList;
 public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopViewHolder> {
 
     private ArrayList<Shop> shopList;
+    private ShopListClickListener shopListClickListener;
 
-    public ShopListAdapter(ArrayList<Shop> shopList) {
+    public ShopListAdapter(ArrayList<Shop> shopList, ShopListClickListener shopListClickListener) {
         this.shopList = shopList;
+        this.shopListClickListener = shopListClickListener;
     }
 
     public void updateShopList(ArrayList<Shop> shopList) {
@@ -40,6 +42,10 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
         }
     }
 
+    public interface ShopListClickListener {
+        public void onItemClick(Shop shop);
+    }
+
     @NonNull
     @Override
     public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,8 +56,17 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-        Shop currentShop = shopList.get(position);
+//        Shop currentShop = shopList.get(position);
+        holder.shopName.setText(shopList.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shopListClickListener.onItemClick(shopList.get(position));
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
