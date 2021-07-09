@@ -41,6 +41,43 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_to_cart_label" />
 
+            <LinearLayout
+                android:id="@+id/item_quantity_controls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/decrement_item_count"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content" />-->
+                <Button
+                    android:id="@+id/decrement_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/decrement_label" />
+
+                <TextView
+                    android:id="@+id/current_item_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/increment_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/increment_label" />
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/increment_item_count"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content" />-->
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

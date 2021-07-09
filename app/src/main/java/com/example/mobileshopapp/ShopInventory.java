@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +21,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     private InventoryAdapter inventoryAdapter;
     private ArrayList<ShopItem> inventory;
     private Button viewCartButton;
+    private ArrayList<ShopItem> userCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         Shop shop = (Shop) getIntent().getSerializableExtra("Shop");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(shop.getName());
+
+        userCart = new ArrayList<>();
 
         inventory = shop.getItems();
 
@@ -50,6 +54,12 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
 
     @Override
     public void addToCart(ShopItem item) {
+        Log.d("Testing", String.format("Added %s to cart", item.getName()));
+        userCart.add(item);
+        Log.d("Testing",String.format("Successfully added %s to cart", item.getName()));
 
+        for(ShopItem cartItem: userCart) {
+            Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
+        }
     }
 }
