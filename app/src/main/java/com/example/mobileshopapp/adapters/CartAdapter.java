@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,9 +38,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         ShopItem item = userCart.get(position);
 
         holder.itemName.setText(item.getName());
-        holder.itemPrice.setText(String.format(Locale.ENGLISH, "%.2f", item.getPrice()));
+        holder.itemPrice.setText(String.format(Locale.ENGLISH, "₱%.2f", item.getPrice()));
         holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
-        holder.subtotal.setText(String.format(Locale.ENGLISH, "%.2f", (item.getPrice() * item.getNumInCart())));
+        holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
 
         holder.decrementCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
                     item.setNumInCart(numInCart - 1);
                     cartClickListener.updateCart(item);
 
-                    holder.subtotal.setText(String.format(Locale.ENGLISH, "%.2f", (item.getPrice() * item.getNumInCart())));
+                    holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
                     holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
                 }
             }
@@ -69,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
                 item.setNumInCart(item.getNumInCart() + 1);
                 cartClickListener.updateCart(item);
 
-                holder.subtotal.setText(String.format(Locale.ENGLISH, "%.2f", (item.getPrice() * item.getNumInCart())));
+                holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
                 holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
             }
         });
@@ -83,8 +84,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
     static class CartItemViewHolder extends RecyclerView.ViewHolder {
         TextView itemName;
         TextView itemPrice;
-        Button incrementCount;
-        Button decrementCount;
+        ImageView incrementCount;
+        ImageView decrementCount;
         TextView currentQuantity;
         TextView subtotal;
 

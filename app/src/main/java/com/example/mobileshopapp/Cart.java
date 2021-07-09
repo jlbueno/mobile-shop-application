@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobileshopapp.adapters.CartAdapter;
 import com.example.mobileshopapp.models.ShopItem;
@@ -50,13 +51,19 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DeliveryInformation.class);
+                // Check if user has an item in their cart before checking out.
+                if(userCart.size() > 0) {
+                    Intent intent = new Intent(getApplicationContext(), DeliveryInformation.class);
 
-                // These extras can be removed because it will not be used in this case.
-                intent.putExtra("userCart", userCart);
-                intent.putExtra("totalItemPrice", totalItemPrice);
+                    // These extras can be removed because it will not be used in this case.
+                    intent.putExtra("userCart", userCart);
+                    intent.putExtra("totalItemPrice", totalItemPrice);
 
-                startActivity(intent);
+                    startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Your cart is empty", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,8 +33,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         LinearLayout quantityControl;
         TextView currentQuantity;
         Button addToCart;
-        Button incrementCount;
-        Button decrementCount;
+        ImageView incrementCount;
+        ImageView decrementCount;
         // ImageView thumbnail;
 
         public InventoryViewHolder(View view) {
