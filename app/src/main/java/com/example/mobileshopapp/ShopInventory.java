@@ -62,4 +62,12 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
         }
     }
+
+    public void removeFromCart(ShopItem item) {
+        Log.d("Testing", String.format("Removed %s from cart", item.getName()));
+        userCart.remove(item);
+        for(ShopItem cartItem: userCart) {
+            Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
+        }
+    }
 }

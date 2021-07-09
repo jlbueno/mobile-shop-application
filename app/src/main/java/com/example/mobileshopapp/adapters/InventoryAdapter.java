@@ -54,6 +54,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     public interface InventoryClickListener{
         public void addToCart(ShopItem item);
+        public void removeFromCart(ShopItem item);
     }
 
     @NonNull
@@ -91,6 +92,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
                 if(numInCart == 1) {
                     // Remove item from cart.
                     item.setNumInCart(0);
+                    inventoryClickListener.removeFromCart(item);
 
                     holder.quantityControl.setVisibility(View.GONE);
                     holder.addToCart.setVisibility(View.VISIBLE);
