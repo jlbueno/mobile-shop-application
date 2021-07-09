@@ -1,6 +1,7 @@
 [
     {
         "name": "McDonald's",
+        "url": "https://static.wikia.nocookie.net/logopedia/images/0/0b/McDonalds_%282018%29_Red_RGB-SVG-10128.svg/revision/latest/scale-to-width-down/1000?cb=20190903135957",
         "inventory": [
             {
                 "name" : "McSpaghetti",
@@ -56,6 +57,7 @@
     },
     {
         "name": "Army Navy",
+        "url": "https://armynavy.com.ph/wp-content/uploads/2020/03/AN-Logo-Horizontal.png",
         "inventory": [
             {
                 "name" : "3pcs Chipotle BBQ & 3pcs Classic Buffalo",
@@ -112,6 +114,7 @@
 
     {
         "name": "Tokyo-Tokyo",
+        "url": "https://static.wikia.nocookie.net/logopedia/images/9/9e/Tokyo_tokyo_logo.png/revision/latest/scale-to-width-down/1000?cb=20170728073914",
         "inventory": [
             {
                 "name" : "3pc Prawn Tempura Classic Bento",
@@ -168,6 +171,7 @@
 
     {
         "name": "Jipan",
+        "url": "https://cdn.shopify.com/s/files/1/0332/4058/0231/files/JiPan_Logo_300x300.jpg?v=1582005698",
         "inventory": [
             {
                 "name" : "Black Sesame Ann Pan",
@@ -224,6 +228,7 @@
 
     {
         "name": "Coffee Project",
+        "url": "https://cdn.shopify.com/s/files/1/0273/4535/4826/files/COFFEE_PROJECT_LOGO_2_c2009cc9-96a0-4313-b8bf-23284f205a25_500x.png?v=1615368617",
         "inventory": [
             {
                 "name" : "Dark Chocolate Frappe",

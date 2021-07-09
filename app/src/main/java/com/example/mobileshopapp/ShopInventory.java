@@ -36,6 +36,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(shop.getName());
+            actionBar.show();
         }
 
         userCart = new ArrayList<>();

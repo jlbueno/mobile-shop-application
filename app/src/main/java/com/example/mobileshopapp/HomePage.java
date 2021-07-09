@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +14,9 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Button viewShopButton = findViewById(R.id.view_shop);
 

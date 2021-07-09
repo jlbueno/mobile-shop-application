@@ -3,11 +3,13 @@ package com.example.mobileshopapp.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mobileshopapp.R;
 import com.example.mobileshopapp.models.Shop;
 
@@ -31,11 +33,12 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
 
     static class ShopViewHolder extends RecyclerView.ViewHolder {
         TextView shopName;
-//        ImageView thumbnail;
+        private ImageView shopThumbnail;
 
         public ShopViewHolder(View view) {
             super(view);
             shopName = view.findViewById(R.id.shop_name);
+            shopThumbnail = view.findViewById(R.id.shop_thumbnail);
         }
     }
 
@@ -53,8 +56,9 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-//        Shop currentShop = shopList.get(position);
         holder.shopName.setText(shopList.get(position).getName());
+
+        Glide.with(holder.shopThumbnail).load(shopList.get(position).getThumbnail()).into(holder.shopThumbnail);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

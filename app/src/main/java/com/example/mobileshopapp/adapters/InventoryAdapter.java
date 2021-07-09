@@ -82,15 +82,6 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         holder.itemPrice.setText(String.format(Locale.ENGLISH, "₱ %.2f", inventory.get(position).getPrice()));
 
         Glide.with(holder.thumbnail).load(item.getThumbnail()).into(holder.thumbnail);
-//        try {
-//            URL url = new URL(inventory.get(position).getThumbnail());
-//            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//            holder.thumbnail.setImageBitmap(bmp);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

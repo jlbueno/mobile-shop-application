@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Shop implements Serializable {
     private final String name;
+    private String url;
     ArrayList<ShopItem> inventory;
 
     public Shop(String name) {
@@ -21,5 +22,9 @@ public class Shop implements Serializable {
 
     public ArrayList<ShopItem> getShopItems() {
         return inventory;
+    }
+
+    public String getThumbnail() {
+        return url;
     }
 }
