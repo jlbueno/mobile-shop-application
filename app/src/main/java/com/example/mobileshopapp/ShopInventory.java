@@ -38,7 +38,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         }
 
         userCart = new ArrayList<>();
-        ArrayList<ShopItem> inventory = shop.getItems();
+        ArrayList<ShopItem> inventory = shop.getShopItems();
         totalItemPrice = 0;
         subtotal = findViewById(R.id.shop_subtotal);
 

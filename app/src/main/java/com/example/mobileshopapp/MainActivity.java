@@ -5,13 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mobileshopapp.adapters.ShopListAdapter;
 import com.example.mobileshopapp.models.Shop;
+import com.example.mobileshopapp.models.ShopItem;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements ShopListAdapter.ShopListClickListener {
     ArrayList<Shop> shopList;
@@ -27,10 +37,8 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         }
 
         shopList = new ArrayList<>();
-        shopList.add(new Shop("Jollibee"));
-        shopList.add(new Shop("McDonald's"));
-        shopList.add(new Shop("KFC"));
 
+        loadShops();
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -43,5 +51,29 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         Intent intent = new Intent(this, ShopInventory.class);
         intent.putExtra("Shop", shop);
         startActivity(intent);
+    }
+
+    private void loadShops() {
+        String json = loadJSONFromAsset(this);
+
+        Gson gson = new Gson();
+        Shop[] shops = gson.fromJson(json, Shop[].class);
+        shopList = new ArrayList<>(Arrays.asList(shops));
+    }
+
+    public String loadJSONFromAsset(Context context) {
+        String json = null;
+        try {
+            InputStream is = getResources().openRawResource(R.raw.data);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }

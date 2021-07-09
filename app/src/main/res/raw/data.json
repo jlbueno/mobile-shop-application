@@ -1,0 +1,280 @@
+[
+    {
+        "name": "McDonald's",
+        "inventory": [
+            {
+                "name" : "McSpaghetti",
+                "price" : 80.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-mcspag_435x320px(2).png"
+            },
+            {
+                "name" : "McSpaghetti Platter",
+                "price" : 220.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/McSpaghettiPlatter_MDS_435x320_spag.png"
+            },
+            {
+                "name" : "McCrispy Chicken Fillet w/ Rice",
+                "price" : 81.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-chixfillet_435x320px(1).png"
+            },
+            {
+                "name" : "McCrispy Chicken Fillet Ala King w/ Rice",
+                "price" : 81.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-chixfilletalaking_435x320px(1).png"
+            },
+            {
+                "name" : "1-pc. Chicken McDo w/ McSpaghetti",
+                "price" : 144.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-1pcchixspag_435x320px.png"
+            },
+            {
+                "name" : "McCrispy Chicken Fillet w/ Rice & Fries",
+                "price" : 113.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-chixfillet_435x320px.png"
+            },
+            {
+                "name" : "McCrispy Chicken Fillet Ala King w/ Rice & Fries",
+                "price" : 113.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-chixfilletalaking_435x320px.png"
+            },
+            {
+                "name" : "1-pc. Spicy Chicken McDo w/ McSpaghetti",
+                "price" : 147.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-1pcspicychixspag_435x320px.png"
+            },
+            {
+                "name" : "McSpaghetti w/ Fries",
+                "price" : 116.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-mcspag%20435x320px(1).png"
+            },
+            {
+                "name" : "McSpaghetti w/ Burger McDo",
+                "price" : 112.00,
+                "url" : "https://mds-web-20210505.s3-ap-southeast-1.amazonaws.com/uploads/images/MDSProdImage2020-Plates-meal-mcspag%20435x320px.png"
+            }
+        ]
+    },
+    {
+        "name": "Army Navy",
+        "inventory": [
+            {
+                "name" : "3pcs Chipotle BBQ & 3pcs Classic Buffalo",
+                "price" : 310.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2020/12/1024_3-Classic-3-Chipotle-300x300.jpg"
+            },
+            {
+                "name" : "Cold Brew",
+                "price" : 140.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_Cold-Brew-300x300.jpg"
+            },
+            {
+                "name" : "Ice Latte Cold Brew",
+                "price" : 140.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_Latte-300x300.jpg"
+            },
+            {
+                "name" : "Ice Caramel Latte Cold Brew",
+                "price" : 160.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_Caramel-300x300.jpg"
+            },
+            {
+                "name" : "Iced French Vanilla Cold Brew",
+                "price" : 160.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_French-Vanilla-300x300.jpg"
+            },
+            {
+                "name" : "Iced Mocha Cold Brew",
+                "price" : 160.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_Mocha-300x300.jpg"
+            },
+            {
+                "name" : "LiberTea Iced Tea 940ml",
+                "price" : 190.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/03/1024_LT-940ml-300x300.jpg"
+            },
+            {
+                "name" : "LiberTea MilKTea 940ml",
+                "price" : 225.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2020/12/1024_LT-Jar-300x300.jpg"
+            },
+            {
+                "name" : "Plant-Based Burger",
+                "price" : 280.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/2021517-02833.jpeg"
+            },
+            {
+                "name" : "Plant-Based Double Burger",
+                "price" : 395.00,
+                "url" : "https://armynavy.com.ph/media/uploads/2021/05/1024_DB-300x300.jpg"
+            }
+        ]
+    },
+
+    {
+        "name": "Tokyo-Tokyo",
+        "inventory": [
+            {
+                "name" : "3pc Prawn Tempura Classic Bento",
+                "price" : 260.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-PRAWNTEMP.png"
+            },
+            {
+                "name" : "Best Chicken Teriyaki Classic Bento",
+                "price" : 260.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-CHIKTERI.png"
+            },
+            {
+                "name" : "Beef Misono Classic Bento",
+                "price" : 260.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-BEEFMIS.png"
+            },
+            {
+                "name" : "Wagyu Katsu Classic Bento",
+                "price" : 265.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-WAGYUKATSU.png"
+            },
+            {
+                "name" : "6pc Chicken Karaage Classic bento",
+                "price" : 255.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-KARAAGEWHOLE.png"
+            },
+            {
+                "name" : "Pork Tonkatsu Classic Bento",
+                "price" : 260.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-PORKTONK.png"
+            },
+            {
+                "name" : "6pc Orange Yuzu Chicken Classic Bento",
+                "price" : 270.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-YUZUWHLCBO.png"
+            },
+            {
+                "name" : "6pc Honey Chicken Teriyaki Classic Bento",
+                "price" : 270.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-HCT6PCCBO.png"
+            },
+            {
+                "name" : "Chicken Menchi Katsu Classic Bento",
+                "price" : 265.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-CHIKMENCBO.png"
+            },
+            {
+                "name" : "Beef Yakiniku Classic Bento",
+                "price" : 260.00,
+                "url" : "https://www.tokyotokyodelivery.ph/productimg/BNT-BEEFYAKI.png"
+            }
+        ]
+    },
+
+    {
+        "name": "Jipan",
+        "inventory": [
+            {
+                "name" : "Black Sesame Ann Pan",
+                "price" : 68.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/7_540x.jpg?v=1624418378"
+            },
+            {
+                "name" : "Mango kouign Amann",
+                "price" : 68.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/8_540x.jpg?v=1624416918"
+            },
+            {
+                "name" : "Chocolate Mousse Cake",
+                "price" : 628.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/c2_540x.jpg?v=1623746008"
+            },
+            {
+                "name" : "Carrot Cake",
+                "price" : 426.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/c1_540x.jpg?v=1623746055"
+            },
+            {
+                "name" : "Bread and Butter Pudding",
+                "price" : 308.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/c3_540x.jpg?v=1623745832"
+            },
+            {
+                "name" : "Ham and Cheese Pinwheels",
+                "price" : 48.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/hamandcheesepinwheel_540x.png?v=1618803108"
+            },
+            {
+                "name" : "Nutella Twists",
+                "price" : 65.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/nutellatwists2_540x.png?v=1618802808"
+            },
+            {
+                "name" : "Mini Cinnamon Rolls",
+                "price" : 245.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/minicinnamonrolls_540x.png?v=1618802449"
+            },
+            {
+                "name" : "Country Bread",
+                "price" : 120.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/countrybread_540x.png?v=1618800568"
+            },
+            {
+                "name" : "Bacon Maple Monkey Bread",
+                "price" : 168.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0332/4058/0231/products/baconmaplemonkeybread_540x.png?v=1602832215"
+            }
+        ]
+    },
+
+    {
+        "name": "Coffee Project",
+        "inventory": [
+            {
+                "name" : "Dark Chocolate Frappe",
+                "price" : 190.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/darkchocolatefrappe_300x.jpg?v=1587036135"
+            },
+            {
+                "name" : "Carbonara",
+                "price" : 250.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/carbonara_300x.jpg?v=1587037042"
+            },
+            {
+                "name" : "Cooki Crumble Frappe",
+                "price" : 200.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/chocolatecookiefrappe_300x.jpg?v=1587036108"
+            },
+            {
+                "name" : "Iced Ca Phe Sua Da",
+                "price" : 195.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/cafesuada_300x.jpg?v=1587038394"
+            },
+            {
+                "name" : "Mushroom Creamy Pesto Pasta",
+                "price" : 290.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/7_300x.jpg?v=1587037448"
+            },
+            {
+                "name" : "Iced Caramel Latte",
+                "price" : 190.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/icedcaramellatter_300x.jpg?v=1587042568"
+            },
+            {
+                "name" : "Chicken Parmigiana with Hot Pepper Rice",
+                "price" : 315.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/chickenparmg_9d63d372-bddf-4dc1-ad75-3b1244095c3c_300x.jpg?v=1587040826"
+            },
+            {
+                "name" : "Continental Breakfast",
+                "price" : 355.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/continentalbfast_300x.jpg?v=1587037135"
+            },
+            {
+                "name" : "Mocha Frappe",
+                "price" : 190.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/mochafrappe_300x.jpg?v=1587036227"
+            },
+            {
+                "name" : "Strawberry Vanilla Frappe",
+                "price" : 195.00,
+                "url" : "https://cdn.shopify.com/s/files/1/0273/4535/4826/products/strawberryvanillafrappe_300x.jpg?v=1587036229"
+            }
+        ]
+    }
+]
