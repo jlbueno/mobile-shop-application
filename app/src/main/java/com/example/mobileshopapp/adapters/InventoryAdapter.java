@@ -52,8 +52,11 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         }
     }
 
-    public interface InventoryClickListener{
+    public interface InventoryClickListener {
         public void addToCart(ShopItem item);
+
+        public void updateCart(ShopItem item);
+
         public void removeFromCart(ShopItem item);
     }
 
@@ -65,13 +68,12 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
         holder.itemName.setText(inventory.get(position).getName());
         holder.itemPrice.setText(String.format("₱ %.2f", inventory.get(position).getPrice()));
 
-        holder.addToCart.setOnClickListener(new View.OnClickListener(){
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShopItem item = inventory.get(position);
@@ -89,7 +91,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
             public void onClick(View view) {
                 ShopItem item = inventory.get(position);
                 int numInCart = item.getNumInCart();
-                if(numInCart == 1) {
+                if (numInCart == 1) {
                     // Remove item from cart.
                     item.setNumInCart(0);
                     inventoryClickListener.removeFromCart(item);
@@ -98,7 +100,9 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
                     holder.addToCart.setVisibility(View.VISIBLE);
                 } else {
                     // Decrement count
-                    item.setNumInCart(numInCart-1);
+                    item.setNumInCart(numInCart - 1);
+                    inventoryClickListener.updateCart(item);
+
                     holder.currentQuantity.setText(Integer.toString(item.getNumInCart()));
                 }
             }
@@ -108,7 +112,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
             @Override
             public void onClick(View view) {
                 ShopItem item = inventory.get(position);
-                item.setNumInCart(item.getNumInCart()+1);
+                item.setNumInCart(item.getNumInCart() + 1);
+                inventoryClickListener.updateCart(item);
 
                 holder.currentQuantity.setText(Integer.toString(item.getNumInCart()));
             }

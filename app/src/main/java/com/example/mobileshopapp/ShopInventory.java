@@ -43,7 +43,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         recyclerView.setAdapter(inventoryAdapter);
 
         viewCartButton = findViewById(R.id.view_cart);
-        viewCartButton.setOnClickListener(new View.OnClickListener(){
+        viewCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Go to cart
@@ -56,17 +56,30 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     public void addToCart(ShopItem item) {
         Log.d("Testing", String.format("Added %s to cart", item.getName()));
         userCart.add(item);
-        Log.d("Testing",String.format("Successfully added %s to cart", item.getName()));
+        Log.d("Testing", String.format("Successfully added %s to cart", item.getName()));
 
-        for(ShopItem cartItem: userCart) {
+        for (ShopItem cartItem : userCart) {
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
         }
     }
 
+    @Override
+    public void updateCart(ShopItem item) {
+        if (userCart.contains(item)) {
+            Integer index = userCart.indexOf(item);
+            userCart.set(index, item);
+
+            for (ShopItem cartItem : userCart) {
+                Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
+            }
+        }
+    }
+
+    @Override
     public void removeFromCart(ShopItem item) {
         Log.d("Testing", String.format("Removed %s from cart", item.getName()));
         userCart.remove(item);
-        for(ShopItem cartItem: userCart) {
+        for (ShopItem cartItem : userCart) {
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
         }
     }
