@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mobileshopapp.adapters.CartAdapter;
@@ -42,8 +44,21 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         recyclerView.setAdapter(adapter);
 
         totalPrice = findViewById(R.id.total_price);
-        totalPrice.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
+        totalPrice.setText(String.format(Locale.ENGLISH, "Total: ₱ %.2f", totalItemPrice));
 
+        Button checkout = findViewById(R.id.checkout);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DeliveryInformation.class);
+
+                // These extras can be removed because it will not be used in this case.
+                intent.putExtra("userCart", userCart);
+                intent.putExtra("totalItemPrice", totalItemPrice);
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -67,6 +82,6 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
             totalItemPrice = totalItemPrice + (item.getNumInCart() * item.getPrice());
         }
 
-        totalPrice.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
+        totalPrice.setText(String.format(Locale.ENGLISH, "Total: ₱ %.2f", totalItemPrice));
     }
 }

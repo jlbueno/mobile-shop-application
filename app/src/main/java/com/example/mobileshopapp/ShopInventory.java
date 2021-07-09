@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobileshopapp.adapters.InventoryAdapter;
@@ -17,11 +18,13 @@ import com.example.mobileshopapp.models.Shop;
 import com.example.mobileshopapp.models.ShopItem;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ShopInventory extends AppCompatActivity implements InventoryAdapter.InventoryClickListener {
 
     private ArrayList<ShopItem> userCart;
     private float totalItemPrice;
+    private TextView subtotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         userCart = new ArrayList<>();
         ArrayList<ShopItem> inventory = shop.getItems();
         totalItemPrice = 0;
+        subtotal = findViewById(R.id.shop_subtotal);
+
+        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
 
         RecyclerView recyclerView = findViewById(R.id.shop_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -67,6 +73,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         Log.d("Testing", String.format("Added %s to cart", item.getName()));
         userCart.add(item);
         totalItemPrice = totalItemPrice + item.getPrice();
+        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
         Log.d("Testing", String.format("Successfully added %s to cart", item.getName()));
 
         for (ShopItem cartItem : userCart) {
@@ -85,6 +92,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                 Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
                 totalItemPrice = totalItemPrice + (cartItem.getPrice() * cartItem.getNumInCart());
             }
+            subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
         }
     }
 
@@ -93,6 +101,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         Log.d("Testing", String.format("Removed %s from cart", item.getName()));
         userCart.remove(item);
         totalItemPrice = totalItemPrice - item.getPrice();
+        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
         for (ShopItem cartItem : userCart) {
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
         }
