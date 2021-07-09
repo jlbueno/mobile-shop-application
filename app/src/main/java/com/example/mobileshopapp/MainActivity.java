@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         setContentView(R.layout.activity_main);
 
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle("Shop List");
+        if (actionbar != null) {
+            actionbar.setTitle("Shop List");
+        }
 
         shopList = new ArrayList<>();
         shopList.add(new Shop("Jollibee"));
-        shopList.add(new Shop("McDonald\'s"));
+        shopList.add(new Shop("McDonald's"));
         shopList.add(new Shop("KFC"));
 
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);

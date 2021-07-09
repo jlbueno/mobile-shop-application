@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mobileshopapp.adapters.InventoryAdapter;
 import com.example.mobileshopapp.models.Shop;
@@ -18,10 +20,8 @@ import java.util.ArrayList;
 
 public class ShopInventory extends AppCompatActivity implements InventoryAdapter.InventoryClickListener {
 
-    private InventoryAdapter inventoryAdapter;
-    private ArrayList<ShopItem> inventory;
-    private Button viewCartButton;
     private ArrayList<ShopItem> userCart;
+    private float totalItemPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +30,33 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
 
         Shop shop = (Shop) getIntent().getSerializableExtra("Shop");
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(shop.getName());
+        if (actionBar != null) {
+            actionBar.setTitle(shop.getName());
+        }
 
         userCart = new ArrayList<>();
-
-        inventory = shop.getItems();
+        ArrayList<ShopItem> inventory = shop.getItems();
+        totalItemPrice = 0;
 
         RecyclerView recyclerView = findViewById(R.id.shop_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        inventoryAdapter = new InventoryAdapter(inventory, this);
+        InventoryAdapter inventoryAdapter = new InventoryAdapter(inventory, this);
         recyclerView.setAdapter(inventoryAdapter);
 
-        viewCartButton = findViewById(R.id.view_cart);
+        Button viewCartButton = findViewById(R.id.view_cart);
         viewCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Go to cart
+                if (userCart.size() <= 0) {
+                    Toast toast = Toast.makeText(ShopInventory.this, "Your cart is empty", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), Cart.class);
+                    intent.putExtra("userCart", userCart);
+                    intent.putExtra("totalItemPrice", totalItemPrice);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -56,6 +66,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     public void addToCart(ShopItem item) {
         Log.d("Testing", String.format("Added %s to cart", item.getName()));
         userCart.add(item);
+        totalItemPrice = totalItemPrice + item.getPrice();
         Log.d("Testing", String.format("Successfully added %s to cart", item.getName()));
 
         for (ShopItem cartItem : userCart) {
@@ -66,11 +77,13 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     @Override
     public void updateCart(ShopItem item) {
         if (userCart.contains(item)) {
-            Integer index = userCart.indexOf(item);
+            int index = userCart.indexOf(item);
             userCart.set(index, item);
 
+            totalItemPrice = 0;
             for (ShopItem cartItem : userCart) {
                 Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
+                totalItemPrice = totalItemPrice + (cartItem.getPrice() * cartItem.getNumInCart());
             }
         }
     }
@@ -79,6 +92,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     public void removeFromCart(ShopItem item) {
         Log.d("Testing", String.format("Removed %s from cart", item.getName()));
         userCart.remove(item);
+        totalItemPrice = totalItemPrice - item.getPrice();
         for (ShopItem cartItem : userCart) {
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
         }
