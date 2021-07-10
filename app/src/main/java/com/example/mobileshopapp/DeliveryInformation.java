@@ -7,14 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobileshopapp.models.ShopItem;
+
 import java.util.ArrayList;
 
 public class DeliveryInformation extends AppCompatActivity {
+
+    ArrayList<ShopItem> userCart;
+
     EditText fullName;
     EditText contactNumber;
     EditText address;
@@ -50,8 +54,7 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Initializing of attributes, "binding" to variables
-     *
+     * Initializing of attributes, "binding" to variables
      */
     private void initializeAttributes() {
         fullName = findViewById(R.id.customer_name);
@@ -64,11 +67,12 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Get values from the Intent from the parent activity
+     * Get values from the Intent from the parent activity
      *
-     * @param intent    the intent sent by the parent activity
+     * @param intent the intent sent by the parent activity
      */
     private void getValuesFromIntent(Intent intent) {
+        userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
         if (intent.hasExtra("deliveryInfo")) {
             ArrayList<String> info = intent.getStringArrayListExtra("deliveryInfo");
             if (info.size() > 0) {
@@ -83,9 +87,9 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Check if the relevant fields are filled up by the user;
+     * Check if the relevant fields are filled up by the user;
      *
-     * @return  boolean value which will decide if the user can check out or not
+     * @return boolean value which will decide if the user can check out or not
      */
     private boolean areRelevantFieldsFilled() {
         if (TextUtils.isEmpty(fullName.getText())) {
@@ -116,10 +120,10 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Get a String from the selected EditText field
+     * Get a String from the selected EditText field
      *
      * @param field the chosen EditText field by the user
-     * @return  the String which the user wrote
+     * @return the String which the user wrote
      */
     private String getDataFromField(EditText field) {
         if (!TextUtils.isEmpty(field.getText())) {
@@ -129,7 +133,7 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Show toast with the appropriate prompt for the user. Invoked when relevant fields are empty.
+     * Show toast with the appropriate prompt for the user. Invoked when relevant fields are empty.
      *
      * @param field the field that the user is required to answer
      */
@@ -139,27 +143,27 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     /**
-     *  Create Intent to pass data to the parent activity when using the Up button in Ancestral Navigation
+     * Create Intent to pass data to the parent activity when using the Up button in Ancestral Navigation
      *
-     * @param item  the item chosen by the user from the action bar
+     * @param item the item chosen by the user from the action bar
      * @return
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent data = new Intent();
+        if (item.getItemId() == android.R.id.home) {
+            Intent data = new Intent();
 
-                data.putExtra("fullName", getDataFromField(fullName));
-                data.putExtra("contactNumber", getDataFromField(contactNumber));
-                data.putExtra("address", getDataFromField(address));
-                data.putExtra("baranggay", getDataFromField(baranggay));
-                data.putExtra("landmark", getDataFromField(landmark));
-                data.putExtra("notes", getDataFromField(notes));
+            data.putExtra("fullName", getDataFromField(fullName));
+            data.putExtra("contactNumber", getDataFromField(contactNumber));
+            data.putExtra("address", getDataFromField(address));
+            data.putExtra("baranggay", getDataFromField(baranggay));
+            data.putExtra("landmark", getDataFromField(landmark));
+            data.putExtra("notes", getDataFromField(notes));
+            data.putExtra("userCart", userCart);
 
-                setResult(RESULT_OK, data);
-                finish();
-                return true;
+            setResult(RESULT_OK, data);
+            finish();
+            return true;
         }
         return (super.onOptionsItemSelected(item));
     }

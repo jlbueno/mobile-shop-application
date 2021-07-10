@@ -1,5 +1,6 @@
 package com.example.mobileshopapp.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,16 +86,20 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     @Override
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
         ShopItem item = inventory.get(position);
+        int numInCart = item.getNumInCart();
 
         holder.itemName.setText(inventory.get(position).getName());
         holder.itemPrice.setText(String.format(Locale.ENGLISH, "₱ %.2f", inventory.get(position).getPrice()));
 
         Glide.with(holder.thumbnail).load(item.getThumbnail()).into(holder.thumbnail);
 
-        if(item.getNumInCart()>0) {
+        if(numInCart>0) {
             holder.quantityControl.setVisibility(View.VISIBLE);
             holder.addToCart.setVisibility(View.GONE);
-            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
+            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", numInCart));
+        }else if(numInCart==0) {
+            holder.quantityControl.setVisibility(View.GONE);
+            holder.addToCart.setVisibility(View.VISIBLE);
         }
 
         holder.addToCart.setOnClickListener(view -> {
@@ -109,15 +114,15 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
         holder.decrementCount.setOnClickListener(view -> {
             ShopItem item12 = inventory.get(position);
-            int numInCart = item12.getNumInCart();
-            if (numInCart == 1) {
+            int numInCart2 = item12.getNumInCart();
+            if (numInCart2 == 1) {
                 item12.setNumInCart(0);
                 inventoryClickListener.removeFromCart(item12);
 
                 holder.quantityControl.setVisibility(View.GONE);
                 holder.addToCart.setVisibility(View.VISIBLE);
             } else {
-                item12.setNumInCart(numInCart - 1);
+                item12.setNumInCart(numInCart2 - 1);
                 inventoryClickListener.updateCart(item12);
 
                 holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item12.getNumInCart()));

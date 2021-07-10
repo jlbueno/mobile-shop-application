@@ -70,7 +70,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     /**
-     *  Create an adapter and initialize the recycler view
+     * Create an adapter and initialize the recycler view
      */
     private void initializeRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.shop_recycler_view);
@@ -81,52 +81,23 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     /**
-     *  Retrieve data from the MainActivity. Useful when the user moves between activities.
+     * Retrieve data from the MainActivity. Useful when the user moves between activities.
      *
-     * @param intent    the intent containing the values from the main activity (Shop choosing screen)
+     * @param intent the intent containing the values from the main activity (Shop choosing screen)
      */
     private void getValuesFromIntent(Intent intent) {
-        if (intent.hasExtra("deliveryInfo")) {
-            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
-        } else {
-            deliveryInfo = new ArrayList<>();
-        }
-
-        if(intent.hasExtra("totalItemPrice")) {
-            totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
-        } else {
-            totalItemPrice = 0;
-        }
-
-        if(intent.hasExtra("userCart")) {
-            userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
-            updateItemViews(userCart, inventory);
-        } else {
-            userCart = new ArrayList<>();
-        }
-
-        if (intent.hasExtra("deliveryInfo")) {
-            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
-        } else {
-            deliveryInfo = new ArrayList<>();
-        }
-
-        if(intent.hasExtra("totalItemPrice")) {
-            totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
-        }
-
-        if(intent.hasExtra("userCart")) {
-            userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
-            updateItemViews(userCart, inventory);
-        } else {
-            userCart = new ArrayList<>();
-        }
+        deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
+        totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
+        userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
+        updateItemViews(userCart, inventory);
+        deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
+        totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
     }
 
     /**
-     *  Add the item to the cart
+     * Add the item to the cart
      *
-     * @param item  the item that will be added
+     * @param item the item that will be added
      */
     @Override
     public void addToCart(ShopItem item) {
@@ -135,9 +106,9 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     /**
-     *  Update the item in the cart by replacing it with the newer item
+     * Update the item in the cart by replacing it with the newer item
      *
-     * @param item  the item that will be updated
+     * @param item the item that will be updated
      */
     @Override
     public void updateCart(ShopItem item) {
@@ -154,9 +125,9 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     /**
-     *  Remove item from the user's cart
+     * Remove item from the user's cart
      *
-     * @param item  the item that will be removed from the userCart
+     * @param item the item that will be removed from the userCart
      */
     @Override
     public void removeFromCart(ShopItem item) {
@@ -166,7 +137,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     /**
-     *  Update the view to be consistent with the current state of the userCart and inventory
+     * Update the view to be consistent with the current state of the userCart and inventory
      *
      * @param userCart  array list that contains the items that the user selected
      * @param inventory inventory of the shop
@@ -190,7 +161,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
      *
      * @param requestCode
      * @param resultCode
-     * @param data          data from the Cart containing the user's cart and total price
+     * @param data        data from the Cart containing the user's cart and total price
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -205,14 +176,15 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
             if (data.hasExtra("deliveryInfo")) {
                 deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
             }
+            inventoryAdapter.notifyDataSetChanged();
+            updateItemViews(userCart, inventory);
         }
-        updateItemViews(userCart, inventory);
     }
 
     /**
-     *  Create Intent to pass data to the parent activity when using the Up button in Ancestral Navigation
+     * Create Intent to pass data to the parent activity when using the Up button in Ancestral Navigation
      *
-     * @param item  the item chosen by the user from the action bar
+     * @param item the item chosen by the user from the action bar
      * @return
      */
     @Override

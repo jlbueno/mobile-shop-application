@@ -161,16 +161,15 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent data = new Intent();
-                removeItemsWithZeroQuantity(userCart);
-                data.putExtra("userCart", userCart);
-                data.putExtra("totalItemPrice", totalItemPrice);
-                data.putExtra("deliveryInfo", deliveryInfo);
-                setResult(RESULT_OK, data);
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            Intent data = new Intent();
+            removeItemsWithZeroQuantity(userCart);
+            data.putExtra("userCart", userCart);
+            data.putExtra("totalItemPrice", totalItemPrice);
+            data.putExtra("deliveryInfo", deliveryInfo);
+            setResult(RESULT_OK, data);
+            finish();
+            return true;
         }
         return (super.onOptionsItemSelected(item));
     }

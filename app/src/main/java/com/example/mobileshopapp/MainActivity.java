@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     }
 
     /**
-     *  Creates an intent and puts the extras then starts the ShopInventory activity
+     * Creates an intent and puts the extras then starts the ShopInventory activity
      *
-     * @param shop  The shop chosen by the user.
+     * @param shop The shop chosen by the user.
      */
     @Override
     public void onItemClick(Shop shop) {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     /**
      * Get the shop and the items in the inventory using Gson
      */
-    private void loadShops( ) {
+    private void loadShops() {
         String json = loadJSONFromAsset();
 
         Gson gson = new Gson();
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     }
 
     /**
-     *  Get a string representation of the data in the raw resource file at res > raw > data.json
+     * Get a string representation of the data in the raw resource file at res > raw > data.json
      *
      * @return the json value parsed to its String equivalent
      */
@@ -104,20 +104,16 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
      *
      * @param requestCode
      * @param resultCode
-     * @param data          data from the ShopInventory containing the user's cart and total price
+     * @param data        data from the ShopInventory containing the user's cart and total price
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             assert data != null;
-            if (data.hasExtra("userCart")) {
-                userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
-                totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
-            }
-            if (data.hasExtra("deliveryInfo")) {
-                deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
-            }
+            userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
+            totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
+            deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
         }
     }
 }
