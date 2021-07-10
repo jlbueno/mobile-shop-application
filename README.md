@@ -4,6 +4,7 @@ This is a project for my application for a developer position at MavenHive
 
 <h2>Resources used for studying android dev</h2>
 <ul>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/index.html">Oracle's Java Tutorials</a></li>
   <li><a href="https://developer.android.com/courses/fundamentals-training/toc-v2">Codelabs fro Android Developer Fundamentals</a> by Google</li>
   <li><a href="https://www.youtube.com/playlist?list=PLhQjrBD2T381qULidYDKP55-4u1piASC1">CS50 2019 - Android Track</a> by Harvard</li>
   <li><a href="https://stackoverflow.com/">StackOverflow</a></li>
