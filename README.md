@@ -1,6 +1,5 @@
 <h1><b> mobile-shop-application</b></h1>
-This is a mobile shopping app that can contain multiple stores. User can shop from multiple stores while using the same shoppping cart. 
-This is a project for my application for a developer position at MavenHive
+This is a mobile shopping app that can contain multiple stores. User can shop from multiple stores while using the same shoppping cart. This is a project for my application for a developer position at MavenHive. The application will look terrible in dark mode of a mobile device.
 
 <h2>Resources used for studying android dev</h2>
 <ul>
@@ -17,6 +16,26 @@ This is a project for my application for a developer position at MavenHive
   <li>"Checkout"</li>
 </ul>
 
+<h2>Run the app</h2>
+<ol>
+  <li>
+    <ol>
+      <li>Download the project</li>
+      <li>In Android Studio go to File > New > Import Project and select the project</li>
+      <li>In Android Studio go to Build > Build Bundle(s) / APK(s)</li>
+      <li>After generating the apk, put it on your android device and install it</li>
+      <li>Run the app</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Download the APK <a href="https://drive.google.com/file/d/1WbweBMsYhQVTgZt-3awAPFeTBfZ70Lyk/view?usp=sharing">here</a>(Google Drive Link)</li>
+      <li>Install the APK</li>
+      <li>Run the app</li>
+    </ol>
+  </li>
+</ol>
+
 <h2>Technologies Used</h2>
 <ul>
   <li>Android Studio 4.2.2</li>
@@ -29,16 +48,11 @@ This is a project for my application for a developer position at MavenHive
   <li>Gson 2.8.7</li>
 </ul>
 
-<h2>Known Bugs</h2>
-<ul>
-  <li>Shop inventory sometimes displays erroneous data when coming from the cart activity</li>
-  <li>Items that comes before the item to be deleted in the RecycleView are also deleted when removing an item from the user's cart</li>
-</ul>
-
 <h2>To-do</h2>
 <ul>
   <li>Make a flexible layout for portrait and landscape mode in both phones and tablets</li>
   <li>Remove item from cart when quantity becomes 0</li>
   <li>Use room for data persistence</li>
   <li>Fetch shop data from an external API</li>
+  <li>Add style for dark themed devices</li>
 </ul>
