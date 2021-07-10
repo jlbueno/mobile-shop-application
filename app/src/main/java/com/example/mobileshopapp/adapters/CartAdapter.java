@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,11 +49,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
                 ShopItem item = userCart.get(position);
                 int numInCart = item.getNumInCart();
 
-                if (numInCart == 1) {
-                    item.setNumInCart(0);
-                    cartClickListener.removeFromCart(item);
-
-                    holder.itemView.setVisibility(View.GONE);
+                if (numInCart == 0) {
+                    Toast toast = Toast.makeText(view.getContext(), "Item count can't be negative", Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
                     item.setNumInCart(numInCart - 1);
                     cartClickListener.updateCart(item);

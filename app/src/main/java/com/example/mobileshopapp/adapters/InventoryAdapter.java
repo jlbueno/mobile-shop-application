@@ -1,7 +1,5 @@
 package com.example.mobileshopapp.adapters;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.mobileshopapp.R;
 import com.example.mobileshopapp.models.ShopItem;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -53,6 +48,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
             incrementCount = view.findViewById(R.id.increment_button);
             decrementCount = view.findViewById(R.id.decrement_button);
             thumbnail = view.findViewById(R.id.item_thumbnail);
+
         }
     }
 
@@ -76,12 +72,16 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
         ShopItem item = inventory.get(position);
 
-        System.out.println(String.format("%s: %s", item.getName(), item.getThumbnail()));
-
         holder.itemName.setText(inventory.get(position).getName());
         holder.itemPrice.setText(String.format(Locale.ENGLISH, "₱ %.2f", inventory.get(position).getPrice()));
 
         Glide.with(holder.thumbnail).load(item.getThumbnail()).into(holder.thumbnail);
+
+        if(item.getNumInCart()>0) {
+            holder.quantityControl.setVisibility(View.VISIBLE);
+            holder.addToCart.setVisibility(View.GONE);
+            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
+        }
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

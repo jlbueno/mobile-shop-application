@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     public void onItemClick(Shop shop) {
         Intent intent = new Intent(this, ShopInventory.class);
         intent.putExtra("Shop", shop);
+        for(ShopItem item:userCart) {
+            System.out.printf("----------------------%s: %d------------------------\n", item.getName(), item.getNumInCart());
+        }
         intent.putExtra("userCart", userCart);
         intent.putExtra("totalItemPrice", totalItemPrice);
         intent.putExtra("deliveryInfo", deliveryInfo);
@@ -93,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             if (data.hasExtra("userCart")) {
                 userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
+                for(ShopItem item:userCart) {
+                    System.out.printf("%s: %d\n", item.getName(), item.getNumInCart());
+                }
                 totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
                 if (data.hasExtra("deliveryInfo")) {
                     deliveryInfo = data.getStringArrayListExtra("deliveryInfo");

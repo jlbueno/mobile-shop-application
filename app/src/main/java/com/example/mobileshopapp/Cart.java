@@ -18,7 +18,9 @@ import com.example.mobileshopapp.adapters.CartAdapter;
 import com.example.mobileshopapp.models.ShopItem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 public class Cart extends AppCompatActivity implements CartAdapter.CartClickListener {
@@ -93,10 +95,13 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
     @Override
     public void removeFromCart(ShopItem item) {
         userCart.remove(item);
+        for(ShopItem mitem : userCart) {
+            System.out.println(String.format("%s: %d", mitem.getName(), mitem.getNumInCart()));
+        }
         updateTotalItemPrice();
     }
 
-    private void updateTotalItemPrice() {
+    public void updateTotalItemPrice() {
         totalItemPrice = 0;
         for (ShopItem item : userCart) {
             totalItemPrice = totalItemPrice + (item.getNumInCart() * item.getPrice());
@@ -110,6 +115,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent data = new Intent();
+                removeItemsWithZeroQuantity(userCart);
                 data.putExtra("userCart", userCart);
                 data.putExtra("totalItemPrice", totalItemPrice);
                 data.putExtra("deliveryInfo", deliveryInfo);
@@ -119,6 +125,15 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         }
 
         return (super.onOptionsItemSelected(item));
+    }
+
+    private void removeItemsWithZeroQuantity(ArrayList<ShopItem> userCart) {
+        Iterator<ShopItem> iterator = userCart.iterator();
+        while(iterator.hasNext()) {
+            if(iterator.next().getNumInCart()==0) {
+                iterator.remove();
+            }
+        }
     }
 
     @Override

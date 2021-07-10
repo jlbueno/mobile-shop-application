@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +26,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
 
     private final int REQUEST_CODE = 1;
 
+    InventoryAdapter inventoryAdapter;
     private ArrayList<ShopItem> userCart;
     ArrayList<ShopItem> inventory;
     private float totalItemPrice;
@@ -47,15 +47,13 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
             actionBar.setTitle(shop.getName());
             actionBar.show();
         }
-
-        deliveryInfo = new ArrayList();
-        if (intent.hasExtra("deliveryInfo")) {
-            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
-        }
-
-        userCart = new ArrayList<>();
         inventory = shop.getShopItems();
         totalItemPrice = 0;
+
+
+
+
+
         subtotal = findViewById(R.id.shop_subtotal);
 
         subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
@@ -63,8 +61,28 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         RecyclerView recyclerView = findViewById(R.id.shop_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        InventoryAdapter inventoryAdapter = new InventoryAdapter(inventory, this);
+        inventoryAdapter = new InventoryAdapter(inventory, this);
         recyclerView.setAdapter(inventoryAdapter);
+
+        if (intent.hasExtra("deliveryInfo")) {
+            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
+        } else {
+            deliveryInfo = new ArrayList<>();
+        }
+
+        if(intent.hasExtra("totalItemPrice")) {
+            totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
+        }
+
+        if(intent.hasExtra("userCart")) {
+            userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
+            for(ShopItem item:userCart) {
+                System.out.printf("==================%s: %d================\n", item.getName(), item.getNumInCart());
+            }
+            updateItemViews(userCart, inventory);
+        } else {
+            userCart = new ArrayList<>();
+        }
 
         Button viewCartButton = findViewById(R.id.view_cart);
         viewCartButton.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +170,24 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                 if (data.hasExtra("deliveryInfo")) {
                     deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
                 }
+
+                updateItemViews(userCart, inventory);
             }
         }
+    }
+
+    private void updateItemViews(ArrayList<ShopItem> userCart, ArrayList<ShopItem> inventory) {
+        for (ShopItem inventoryItem : inventory) {
+            for (ShopItem item : userCart) {
+                if (item.getName().equals(inventoryItem.getName())) {
+                    System.out.println(String.format("%s, %d | %d", item.getName(), item.getNumInCart(), inventoryItem.getNumInCart()));
+                    int index = inventory.indexOf(inventoryItem);
+                    inventory.set(index, item);
+                } else {
+                    inventoryItem.setNumInCart(0);
+                }
+            }
+        }
+        inventoryAdapter.notifyDataSetChanged();
     }
 }
