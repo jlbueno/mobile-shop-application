@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopViewHolder> {
 
     private final ArrayList<Shop> shopList;
-    private final ShopListClickListener  shopListClickListener;
+    private final ShopListClickListener shopListClickListener;
 
     public ShopListAdapter(ArrayList<Shop> shopList, ShopListClickListener shopListClickListener) {
         this.shopList = shopList;
@@ -41,6 +41,14 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
         void onItemClick(Shop shop);
     }
 
+
+    /**
+     *  Return the ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,17 +56,25 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
         return new ShopViewHolder(view);
     }
 
-
+    /**
+     *  Put string, image, and listener to appropriate attribute.
+     *  Essentially this connects the data to the views.
+     *
+     * @param holder   variable containing the current item
+     * @param position  position of the current item relative to the recycler view
+     */
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
         holder.shopName.setText(shopList.get(position).getName());
-
         Glide.with(holder.shopThumbnail).load(shopList.get(position).getThumbnail()).into(holder.shopThumbnail);
 
         holder.itemView.setOnClickListener(view -> shopListClickListener.onItemClick(shopList.get(position)));
     }
 
-
+    /**
+     *
+     * @return  the number of items in the RecyclerView
+     */
     @Override
     public int getItemCount() {
         return shopList.size();

@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     private final int REQUEST_CODE = 1;
 
     ArrayList<Shop> shopList;
-    private ArrayList<ShopItem> userCart;
-    private float totalItemPrice;
 
+    private ArrayList<ShopItem> userCart;
     private ArrayList<String> deliveryInfo;
+    private float totalItemPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     *  Creates an intent and puts the extras then starts the ShopInventory activity
+     *
+     * @param shop  The shop chosen by the user.
+     */
     @Override
     public void onItemClick(Shop shop) {
         Intent intent = new Intent(this, ShopInventory.class);
@@ -62,7 +67,10 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-    private void loadShops() {
+    /**
+     * Get the shop and the items in the inventory using Gson
+     */
+    private void loadShops( ) {
         String json = loadJSONFromAsset();
 
         Gson gson = new Gson();
@@ -70,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         shopList = new ArrayList<>(Arrays.asList(shops));
     }
 
+    /**
+     *  Get a string representation of the data in the raw resource file at res > raw > data.json
+     *
+     * @return the json value parsed to its String equivalent
+     */
     public String loadJSONFromAsset() {
         String json;
         try {
@@ -86,16 +99,24 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         return json;
     }
 
+    /**
+     * Retrieve the data from the ShopInventory Activity
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data          data from the ShopInventory containing the user's cart and total price
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            assert data != null;
             if (data.hasExtra("userCart")) {
                 userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
                 totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
-                if (data.hasExtra("deliveryInfo")) {
-                    deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
-                }
+            }
+            if (data.hasExtra("deliveryInfo")) {
+                deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
             }
         }
     }

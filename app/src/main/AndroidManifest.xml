@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileShopApp">
-        <activity android:name=".HomePage">
+        <activity
+            android:name=".HomePage"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +23,9 @@
         </activity>
         <activity
             android:name=".DeliveryInformation"
-            android:parentActivityName=".Cart">
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".Cart"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -28,21 +33,27 @@
         </activity>
         <activity
             android:name=".Cart"
-            android:parentActivityName=".ShopInventory">
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".ShopInventory"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Cart" />
         </activity>
         <activity
             android:name=".ShopInventory"
-            android:parentActivityName=".MainActivity">
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ShopInventory" />
         </activity>
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".HomePage">
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

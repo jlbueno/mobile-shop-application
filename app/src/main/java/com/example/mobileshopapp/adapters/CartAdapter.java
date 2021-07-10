@@ -26,6 +26,36 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         this.cartClickListener = cartClickListener;
     }
 
+    static class CartItemViewHolder extends RecyclerView.ViewHolder {
+        TextView itemName;
+        TextView itemPrice;
+        ImageView incrementCount;
+        ImageView decrementCount;
+        TextView currentQuantity;
+        TextView subtotal;
+
+        public CartItemViewHolder(View view) {
+            super(view);
+            itemName = view.findViewById(R.id.cart_item_name);
+            itemPrice = view.findViewById(R.id.cart_item_price);
+            incrementCount = view.findViewById(R.id.cart_item_increment);
+            decrementCount = view.findViewById(R.id.cart_item_decrement);
+            currentQuantity = view.findViewById(R.id.cart_current_item_quantity);
+            subtotal = view.findViewById(R.id.cart_item_subtotal);
+        }
+    }
+
+    public interface CartClickListener {
+        void updateCart(ShopItem item);
+    }
+
+    /**
+     *  Return the ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public CartItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,6 +63,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         return new CartAdapter.CartItemViewHolder(view);
     }
 
+    /**
+     *  Put string, image, and listener to appropriate attribute.
+     *  Essentially this connects the data to the views.
+     *
+     * @param holder   variable containing the current item
+     * @param position  position of the current item relative to the recycler view
+     */
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.CartItemViewHolder holder, int position) {
         ShopItem item = userCart.get(position);
@@ -68,33 +105,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         });
     }
 
+    /**
+     *
+     * @return  the number of items in the RecyclerView
+     */
     @Override
     public int getItemCount() {
         return userCart.size();
     }
-
-    static class CartItemViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName;
-        TextView itemPrice;
-        ImageView incrementCount;
-        ImageView decrementCount;
-        TextView currentQuantity;
-        TextView subtotal;
-
-        public CartItemViewHolder(View view) {
-            super(view);
-            itemName = view.findViewById(R.id.cart_item_name);
-            itemPrice = view.findViewById(R.id.cart_item_price);
-            incrementCount = view.findViewById(R.id.cart_item_increment);
-            decrementCount = view.findViewById(R.id.cart_item_decrement);
-            currentQuantity = view.findViewById(R.id.cart_current_item_quantity);
-            subtotal = view.findViewById(R.id.cart_item_subtotal);
-        }
-
-    }
-
-    public interface CartClickListener {
-        void updateCart(ShopItem item);
-    }
-
 }

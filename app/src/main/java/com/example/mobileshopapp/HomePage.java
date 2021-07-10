@@ -17,7 +17,6 @@ public class HomePage extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
-
         }
 
         Button viewShopButton = findViewById(R.id.view_shop);

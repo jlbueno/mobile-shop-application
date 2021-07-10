@@ -60,6 +60,13 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         void removeFromCart(ShopItem item);
     }
 
+    /**
+     *  Return the ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public InventoryAdapter.InventoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,6 +75,13 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     }
 
 
+    /**
+     *  Put string, image, and listener to appropriate attribute.
+     *  Essentially this connects the data to the views.
+     *
+     * @param holder   variable containing the current item
+     * @param position  position of the current item relative to the recycler view
+     */
     @Override
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
         ShopItem item = inventory.get(position);
@@ -121,6 +135,10 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     }
 
+    /**
+     *
+     * @return  the number of items in the RecyclerView
+     */
     @Override
     public int getItemCount() {
         return inventory.size();

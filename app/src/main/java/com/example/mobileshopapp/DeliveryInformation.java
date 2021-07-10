@@ -21,6 +21,7 @@ public class DeliveryInformation extends AppCompatActivity {
     EditText baranggay;
     EditText landmark;
     EditText notes;
+    Button checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,28 +33,9 @@ public class DeliveryInformation extends AppCompatActivity {
             actionbar.setTitle("Delivery Information");
         }
 
-
-        fullName = findViewById(R.id.customer_name);
-        contactNumber = findViewById(R.id.customer_number);
-        address = findViewById(R.id.customer_address);
-        baranggay = findViewById(R.id.customer_baranggay);
-        landmark = findViewById(R.id.customer_landmark);
-        notes = findViewById(R.id.customer_notes);
-        Button checkout = findViewById(R.id.checkout_button);
-
+        initializeAttributes();
         Intent intent = getIntent();
-        if (intent.hasExtra("deliveryInfo")) {
-            ArrayList<String> info = intent.getStringArrayListExtra("deliveryInfo");
-            if (info.size() > 0) {
-                fullName.setText(info.get(0));
-                contactNumber.setText(info.get(1));
-                address.setText(info.get(2));
-                baranggay.setText(info.get(3));
-                landmark.setText(info.get(4));
-                notes.setText(info.get(5));
-            }
-
-        }
+        getValuesFromIntent(intent);
 
         checkout.setOnClickListener(v -> {
             if (areRelevantFieldsFilled()) {
@@ -67,6 +49,44 @@ public class DeliveryInformation extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Initializing of attributes, "binding" to variables
+     *
+     */
+    private void initializeAttributes() {
+        fullName = findViewById(R.id.customer_name);
+        contactNumber = findViewById(R.id.customer_number);
+        address = findViewById(R.id.customer_address);
+        baranggay = findViewById(R.id.customer_baranggay);
+        landmark = findViewById(R.id.customer_landmark);
+        notes = findViewById(R.id.customer_notes);
+        checkout = findViewById(R.id.checkout_button);
+    }
+
+    /**
+     *  Get values from the Intent from the parent activity
+     *
+     * @param intent    the intent sent by the parent activity
+     */
+    private void getValuesFromIntent(Intent intent) {
+        if (intent.hasExtra("deliveryInfo")) {
+            ArrayList<String> info = intent.getStringArrayListExtra("deliveryInfo");
+            if (info.size() > 0) {
+                fullName.setText(info.get(0));
+                contactNumber.setText(info.get(1));
+                address.setText(info.get(2));
+                baranggay.setText(info.get(3));
+                landmark.setText(info.get(4));
+                notes.setText(info.get(5));
+            }
+        }
+    }
+
+    /**
+     *  Check if the relevant fields are filled up by the user;
+     *
+     * @return  boolean value which will decide if the user can check out or not
+     */
     private boolean areRelevantFieldsFilled() {
         if (TextUtils.isEmpty(fullName.getText())) {
             promptUser("Full name");
@@ -95,6 +115,12 @@ public class DeliveryInformation extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *  Get a String from the selected EditText field
+     *
+     * @param field the chosen EditText field by the user
+     * @return  the String which the user wrote
+     */
     private String getDataFromField(EditText field) {
         if (!TextUtils.isEmpty(field.getText())) {
             return field.getText().toString();
@@ -102,11 +128,22 @@ public class DeliveryInformation extends AppCompatActivity {
         return "";
     }
 
+    /**
+     *  Show toast with the appropriate prompt for the user. Invoked when relevant fields are empty.
+     *
+     * @param field the field that the user is required to answer
+     */
     private void promptUser(String field) {
         Toast toast = Toast.makeText(this, String.format("%s is required", field), Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    /**
+     *  Create Intent to pass data to the parent activity when using the Up button in Ancestral Navigation
+     *
+     * @param item  the item chosen by the user from the action bar
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -124,7 +161,6 @@ public class DeliveryInformation extends AppCompatActivity {
                 finish();
                 return true;
         }
-
         return (super.onOptionsItemSelected(item));
     }
 }

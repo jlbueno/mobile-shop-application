@@ -16,10 +16,6 @@ public class Shop implements Serializable {
         return name;
     }
 
-    public void setInventory(ArrayList<ShopItem> inventory) {
-        this.inventory = inventory;
-    }
-
     public ArrayList<ShopItem> getShopItems() {
         return inventory;
     }

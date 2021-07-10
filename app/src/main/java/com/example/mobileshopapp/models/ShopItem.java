@@ -29,10 +29,6 @@ public class ShopItem implements Serializable {
         this.numInCart = numInCart;
     }
 
-    public void setThumbnail(String url) {
-        this.url = url;
-    }
-
     public String getThumbnail() {
         return url;
     }
