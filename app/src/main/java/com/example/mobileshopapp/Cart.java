@@ -53,7 +53,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
 
         Button checkout = findViewById(R.id.checkout);
         checkout.setOnClickListener(v -> {
-            if (userCart.size() > 0) {
+            if (userCart.size() > 0 && totalItemPrice > 0) {
                 Intent intent1 = new Intent(getApplicationContext(), DeliveryInformation.class);
 
                 intent1.putExtra("userCart", userCart);
