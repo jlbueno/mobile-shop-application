@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,13 +18,17 @@ import com.example.mobileshopapp.adapters.CartAdapter;
 import com.example.mobileshopapp.models.ShopItem;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Cart extends AppCompatActivity implements CartAdapter.CartClickListener {
+    private final int REQUEST_CODE = 1;
 
     private ArrayList<ShopItem> userCart;
     float totalItemPrice;
     TextView totalPrice;
+
+    private ArrayList<String> deliveryInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,8 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
         totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
 
+        deliveryInfo = new ArrayList();
+
         RecyclerView recyclerView = findViewById(R.id.cart_recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -52,14 +60,16 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
             @Override
             public void onClick(View v) {
                 // Check if user has an item in their cart before checking out.
-                if(userCart.size() > 0) {
+                if (userCart.size() > 0) {
                     Intent intent = new Intent(getApplicationContext(), DeliveryInformation.class);
 
-                    // These extras can be removed because it will not be used in this case.
                     intent.putExtra("userCart", userCart);
                     intent.putExtra("totalItemPrice", totalItemPrice);
+                    if (deliveryInfo.size() > 0) {
+                        intent.putExtra("deliveryInfo", deliveryInfo);
+                    }
 
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE);
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Your cart is empty", Toast.LENGTH_SHORT);
                     toast.show();
@@ -91,4 +101,35 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
 
         totalPrice.setText(String.format(Locale.ENGLISH, "Total: ₱ %.2f", totalItemPrice));
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent data = new Intent();
+                data.putExtra("userCart", userCart);
+                data.putExtra("totalItemPrice", totalItemPrice);
+                setResult(RESULT_OK, data);
+                finish();
+//                onBackPressed();
+                return true;
+        }
+
+        return (super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Get the data from intent here.
+            deliveryInfo.add(data.getStringExtra("fullName"));
+            deliveryInfo.add(data.getStringExtra("contactNumber"));
+            deliveryInfo.add(data.getStringExtra("address"));
+            deliveryInfo.add(data.getStringExtra("baranggay"));
+            deliveryInfo.add(data.getStringExtra("landmark"));
+            deliveryInfo.add(data.getStringExtra("notes"));
+        }
+    }
+    //                fullName, contactNumber, address, baranggay, landmark, notes
 }

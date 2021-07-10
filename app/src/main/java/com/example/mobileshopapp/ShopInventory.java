@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,7 +24,10 @@ import java.util.Locale;
 
 public class ShopInventory extends AppCompatActivity implements InventoryAdapter.InventoryClickListener {
 
+    private final int REQUEST_CODE = 1;
+
     private ArrayList<ShopItem> userCart;
+    ArrayList<ShopItem> inventory;
     private float totalItemPrice;
     private TextView subtotal;
 
@@ -40,11 +44,11 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         }
 
         userCart = new ArrayList<>();
-        ArrayList<ShopItem> inventory = shop.getShopItems();
+        inventory = shop.getShopItems();
         totalItemPrice = 0;
         subtotal = findViewById(R.id.shop_subtotal);
 
-        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
+        subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
 
         RecyclerView recyclerView = findViewById(R.id.shop_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -63,7 +67,8 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                     Intent intent = new Intent(getApplicationContext(), Cart.class);
                     intent.putExtra("userCart", userCart);
                     intent.putExtra("totalItemPrice", totalItemPrice);
-                    startActivity(intent);
+//                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE);
                 }
             }
         });
@@ -75,7 +80,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         Log.d("Testing", String.format("Added %s to cart", item.getName()));
         userCart.add(item);
         totalItemPrice = totalItemPrice + item.getPrice();
-        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
+        subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
         Log.d("Testing", String.format("Successfully added %s to cart", item.getName()));
 
         for (ShopItem cartItem : userCart) {
@@ -94,7 +99,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                 Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
                 totalItemPrice = totalItemPrice + (cartItem.getPrice() * cartItem.getNumInCart());
             }
-            subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
+            subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
         }
     }
 
@@ -103,9 +108,23 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         Log.d("Testing", String.format("Removed %s from cart", item.getName()));
         userCart.remove(item);
         totalItemPrice = totalItemPrice - item.getPrice();
-        subtotal.setText(String.format(Locale.ENGLISH,"₱ %.2f", totalItemPrice));
+        subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
         for (ShopItem cartItem : userCart) {
             Log.d("Testing", String.format("%s: %d", cartItem.getName(), cartItem.getNumInCart()));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            if (data.hasExtra("userCart")) {
+                System.out.println("---------------UPDATING CART--------------------");
+                userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
+                totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
+                subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
+
+            }
         }
     }
 }

@@ -3,12 +3,16 @@ package com.example.mobileshopapp;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DeliveryInformation extends AppCompatActivity {
     EditText fullName;
@@ -28,6 +32,8 @@ public class DeliveryInformation extends AppCompatActivity {
             actionbar.setTitle("Delivery Information");
         }
 
+
+
         fullName = findViewById(R.id.customer_name);
         contactNumber = findViewById(R.id.customer_number);
         address = findViewById(R.id.customer_address);
@@ -35,6 +41,17 @@ public class DeliveryInformation extends AppCompatActivity {
         landmark = findViewById(R.id.customer_landmark);
         notes = findViewById(R.id.customer_notes);
         Button checkout = findViewById(R.id.checkout_button);
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("deliveryInfo")) {
+            ArrayList<String> info = intent.getStringArrayListExtra("deliveryInfo");
+            fullName.setText(info.get(0));
+            contactNumber.setText(info.get(1));
+            address.setText(info.get(2));
+            baranggay.setText(info.get(3));
+            landmark.setText(info.get(4));
+            notes.setText(info.get(5));
+        }
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +96,36 @@ public class DeliveryInformation extends AppCompatActivity {
         return true;
     }
 
+    private String getDataFromField(EditText field) {
+        if(!TextUtils.isEmpty(field.getText())){
+            return field.getText().toString();
+        }
+        return "";
+    }
+
     private void promptUser(String field) {
         Toast toast = Toast.makeText(this, String.format("%s is required", field), Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                Intent data = new Intent();
+
+                data.putExtra("fullName", getDataFromField(fullName));
+                data.putExtra("contactNumber", getDataFromField(contactNumber));
+                data.putExtra("address", getDataFromField(address));
+                data.putExtra("baranggay", getDataFromField(baranggay));
+                data.putExtra("landmark", getDataFromField(landmark));
+                data.putExtra("notes", getDataFromField(notes));
+
+                setResult(RESULT_OK, data);
+                finish();
+                return true;
+        }
+
+        return(super.onOptionsItemSelected(item));
     }
 }
