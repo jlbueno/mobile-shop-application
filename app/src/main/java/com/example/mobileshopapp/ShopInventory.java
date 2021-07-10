@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,16 +32,25 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     private float totalItemPrice;
     private TextView subtotal;
 
+    private ArrayList<String> deliveryInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_inventory);
 
-        Shop shop = (Shop) getIntent().getSerializableExtra("Shop");
+        Intent intent = getIntent();
+
+        Shop shop = (Shop) intent.getSerializableExtra("Shop");
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(shop.getName());
             actionBar.show();
+        }
+
+        deliveryInfo = new ArrayList();
+        if (intent.hasExtra("deliveryInfo")) {
+            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
         }
 
         userCart = new ArrayList<>();
@@ -67,7 +77,7 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                     Intent intent = new Intent(getApplicationContext(), Cart.class);
                     intent.putExtra("userCart", userCart);
                     intent.putExtra("totalItemPrice", totalItemPrice);
-//                    startActivity(intent);
+                    intent.putExtra("deliveryInfo", deliveryInfo);
                     startActivityForResult(intent, REQUEST_CODE);
                 }
             }
@@ -115,6 +125,22 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent data = new Intent();
+                data.putExtra("userCart", userCart);
+                data.putExtra("totalItemPrice", totalItemPrice);
+                data.putExtra("deliveryInfo", deliveryInfo);
+                setResult(RESULT_OK, data);
+                finish();
+                return true;
+        }
+
+        return (super.onOptionsItemSelected(item));
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
@@ -123,7 +149,9 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
                 userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
                 totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
                 subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
-
+                if (data.hasExtra("deliveryInfo")) {
+                    deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
+                }
             }
         }
     }

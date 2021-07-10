@@ -33,7 +33,6 @@ public class DeliveryInformation extends AppCompatActivity {
         }
 
 
-
         fullName = findViewById(R.id.customer_name);
         contactNumber = findViewById(R.id.customer_number);
         address = findViewById(R.id.customer_address);
@@ -43,23 +42,29 @@ public class DeliveryInformation extends AppCompatActivity {
         Button checkout = findViewById(R.id.checkout_button);
 
         Intent intent = getIntent();
-        if(intent.hasExtra("deliveryInfo")) {
+        if (intent.hasExtra("deliveryInfo")) {
             ArrayList<String> info = intent.getStringArrayListExtra("deliveryInfo");
-            fullName.setText(info.get(0));
-            contactNumber.setText(info.get(1));
-            address.setText(info.get(2));
-            baranggay.setText(info.get(3));
-            landmark.setText(info.get(4));
-            notes.setText(info.get(5));
+            if (info.size() > 0) {
+                fullName.setText(info.get(0));
+                contactNumber.setText(info.get(1));
+                address.setText(info.get(2));
+                baranggay.setText(info.get(3));
+                landmark.setText(info.get(4));
+                notes.setText(info.get(5));
+            }
+
         }
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(areRelevantFieldsFilled()) {
+                if (areRelevantFieldsFilled()) {
                     // Change this with implementation for Checkout logic.
                     Toast toast = Toast.makeText(getApplicationContext(), "Successfully checked out!", Toast.LENGTH_SHORT);
                     toast.show();
+
+                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(intent);
                 }
 
             }
@@ -97,7 +102,7 @@ public class DeliveryInformation extends AppCompatActivity {
     }
 
     private String getDataFromField(EditText field) {
-        if(!TextUtils.isEmpty(field.getText())){
+        if (!TextUtils.isEmpty(field.getText())) {
             return field.getText().toString();
         }
         return "";
@@ -110,7 +115,7 @@ public class DeliveryInformation extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 Intent data = new Intent();
 
@@ -126,6 +131,6 @@ public class DeliveryInformation extends AppCompatActivity {
                 return true;
         }
 
-        return(super.onOptionsItemSelected(item));
+        return (super.onOptionsItemSelected(item));
     }
 }

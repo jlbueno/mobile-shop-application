@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 
 import com.example.mobileshopapp.adapters.ShopListAdapter;
 import com.example.mobileshopapp.models.Shop;
+import com.example.mobileshopapp.models.ShopItem;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -17,9 +19,17 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ShopListAdapter.ShopListClickListener {
+
+    private final int REQUEST_CODE = 1;
+
     ArrayList<Shop> shopList;
+    private ArrayList<ShopItem> userCart;
+    private float totalItemPrice;
+
+    private ArrayList<String> deliveryInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +41,9 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
             actionbar.setTitle("Shop List");
         }
 
+        userCart = new ArrayList<>();
         shopList = new ArrayList<>();
+        deliveryInfo = new ArrayList<>();
 
         loadShops();
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
@@ -45,7 +57,10 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
     public void onItemClick(Shop shop) {
         Intent intent = new Intent(this, ShopInventory.class);
         intent.putExtra("Shop", shop);
-        startActivity(intent);
+        intent.putExtra("userCart", userCart);
+        intent.putExtra("totalItemPrice", totalItemPrice);
+        intent.putExtra("deliveryInfo", deliveryInfo);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     private void loadShops() {
@@ -56,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
         shopList = new ArrayList<>(Arrays.asList(shops));
     }
 
-    public String loadJSONFromAsset( ) {
+    public String loadJSONFromAsset() {
         String json;
         try {
             InputStream is = getResources().openRawResource(R.raw.data);
@@ -70,5 +85,19 @@ public class MainActivity extends AppCompatActivity implements ShopListAdapter.S
             return null;
         }
         return json;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            if (data.hasExtra("userCart")) {
+                userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
+                totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
+                if (data.hasExtra("deliveryInfo")) {
+                    deliveryInfo = data.getStringArrayListExtra("deliveryInfo");
+                }
+            }
+        }
     }
 }

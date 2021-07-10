@@ -45,6 +45,9 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
 
         deliveryInfo = new ArrayList();
+        if(intent.hasExtra("deliveryInfo")) {
+            deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
+        }
 
         RecyclerView recyclerView = findViewById(R.id.cart_recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -109,9 +112,9 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
                 Intent data = new Intent();
                 data.putExtra("userCart", userCart);
                 data.putExtra("totalItemPrice", totalItemPrice);
+                data.putExtra("deliveryInfo", deliveryInfo);
                 setResult(RESULT_OK, data);
                 finish();
-//                onBackPressed();
                 return true;
         }
 
@@ -122,7 +125,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Get the data from intent here.
+
             deliveryInfo.add(data.getStringExtra("fullName"));
             deliveryInfo.add(data.getStringExtra("contactNumber"));
             deliveryInfo.add(data.getStringExtra("address"));
@@ -131,5 +134,4 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
             deliveryInfo.add(data.getStringExtra("notes"));
         }
     }
-    //                fullName, contactNumber, address, baranggay, landmark, notes
 }
