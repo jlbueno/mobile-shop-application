@@ -3,7 +3,7 @@ This is a mobile shopping app that can contain multiple stores. User can shop fr
 
 <h2>Resources used for studying android dev</h2>
 <ul>
-  <li><a href="https://docs.oracle.com/javase/tutorial/java/index.html">Oracle's Java Tutorials</a></li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/index.html">Java Tutorials</a> by Oracle</li>
   <li><a href="https://developer.android.com/courses/fundamentals-training/toc-v2">Codelabs fro Android Developer Fundamentals</a> by Google</li>
   <li><a href="https://www.youtube.com/playlist?list=PLhQjrBD2T381qULidYDKP55-4u1piASC1">CS50 2019 - Android Track</a> by Harvard</li>
   <li><a href="https://stackoverflow.com/">StackOverflow</a></li>
@@ -17,6 +17,9 @@ This is a mobile shopping app that can contain multiple stores. User can shop fr
 </ul>
 
 <h2>Run the app</h2>
+Note: Using the android system's back button will mess up the state of the application because it relies on Intents to pass data around(Room is not yet implemented).<br/><br/>
+<br/>
+
 <ol>
   <li>
     <ol>
