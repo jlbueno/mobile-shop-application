@@ -3,7 +3,6 @@ package com.example.mobileshopapp.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +18,7 @@ import java.util.Locale;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHolder> {
 
-    private ArrayList<ShopItem> userCart;
+    private final ArrayList<ShopItem> userCart;
     private final CartClickListener cartClickListener;
 
     public CartAdapter(ArrayList<ShopItem> userCart, CartClickListener cartClickListener) {
@@ -43,35 +42,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
         holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
 
-        holder.decrementCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopItem item = userCart.get(position);
-                int numInCart = item.getNumInCart();
+        holder.decrementCount.setOnClickListener(view -> {
+            ShopItem item1 = userCart.get(position);
+            int numInCart = item1.getNumInCart();
 
-                if (numInCart == 0) {
-                    Toast toast = Toast.makeText(view.getContext(), "Item count can't be negative", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    item.setNumInCart(numInCart - 1);
-                    cartClickListener.updateCart(item);
+            if (numInCart == 0) {
+                Toast toast = Toast.makeText(view.getContext(), "Item count can't be negative", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                item1.setNumInCart(numInCart - 1);
+                cartClickListener.updateCart(item1);
 
-                    holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
-                    holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
-                }
+                holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item1.getPrice() * item1.getNumInCart())));
+                holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item1.getNumInCart()));
             }
         });
 
-        holder.incrementCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopItem item = userCart.get(position);
-                item.setNumInCart(item.getNumInCart() + 1);
-                cartClickListener.updateCart(item);
+        holder.incrementCount.setOnClickListener(view -> {
+            ShopItem item12 = userCart.get(position);
+            item12.setNumInCart(item12.getNumInCart() + 1);
+            cartClickListener.updateCart(item12);
 
-                holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item.getPrice() * item.getNumInCart())));
-                holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
-            }
+            holder.subtotal.setText(String.format(Locale.ENGLISH, " ₱%.2f", (item12.getPrice() * item12.getNumInCart())));
+            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item12.getNumInCart()));
         });
     }
 
@@ -102,8 +95,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
 
     public interface CartClickListener {
         void updateCart(ShopItem item);
-
-        void removeFromCart(ShopItem item);
     }
 
 }

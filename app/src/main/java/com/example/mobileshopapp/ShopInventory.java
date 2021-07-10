@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,28 +75,22 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
 
         if(intent.hasExtra("userCart")) {
             userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
-            for(ShopItem item:userCart) {
-                System.out.printf("==================%s: %d================\n", item.getName(), item.getNumInCart());
-            }
             updateItemViews(userCart, inventory);
         } else {
             userCart = new ArrayList<>();
         }
 
         Button viewCartButton = findViewById(R.id.view_cart);
-        viewCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (userCart.size() <= 0) {
-                    Toast toast = Toast.makeText(ShopInventory.this, "Your cart is empty", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), Cart.class);
-                    intent.putExtra("userCart", userCart);
-                    intent.putExtra("totalItemPrice", totalItemPrice);
-                    intent.putExtra("deliveryInfo", deliveryInfo);
-                    startActivityForResult(intent, REQUEST_CODE);
-                }
+        viewCartButton.setOnClickListener(view -> {
+            if (userCart.size() <= 0) {q
+                Toast toast = Toast.makeText(ShopInventory.this, "Your cart is empty", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                Intent intent1 = new Intent(getApplicationContext(), Cart.class);
+                intent1.putExtra("userCart", userCart);
+                intent1.putExtra("totalItemPrice", totalItemPrice);
+                intent1.putExtra("deliveryInfo", deliveryInfo);
+                startActivityForResult(intent1, REQUEST_CODE);
             }
         });
     }
@@ -144,15 +137,14 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent data = new Intent();
-                data.putExtra("userCart", userCart);
-                data.putExtra("totalItemPrice", totalItemPrice);
-                data.putExtra("deliveryInfo", deliveryInfo);
-                setResult(RESULT_OK, data);
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            Intent data = new Intent();
+            data.putExtra("userCart", userCart);
+            data.putExtra("totalItemPrice", totalItemPrice);
+            data.putExtra("deliveryInfo", deliveryInfo);
+            setResult(RESULT_OK, data);
+            finish();
+            return true;
         }
 
         return (super.onOptionsItemSelected(item));
@@ -162,8 +154,8 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            assert data != null;
             if (data.hasExtra("userCart")) {
-                System.out.println("---------------UPDATING CART--------------------");
                 userCart = (ArrayList<ShopItem>) (data.getSerializableExtra("userCart"));
                 totalItemPrice = data.getFloatExtra("totalItemPrice", 0);
                 subtotal.setText(String.format(Locale.ENGLISH, "₱ %.2f", totalItemPrice));
@@ -180,7 +172,6 @@ public class ShopInventory extends AppCompatActivity implements InventoryAdapter
         for (ShopItem inventoryItem : inventory) {
             for (ShopItem item : userCart) {
                 if (item.getName().equals(inventoryItem.getName())) {
-                    System.out.println(String.format("%s, %d | %d", item.getName(), item.getNumInCart(), inventoryItem.getNumInCart()));
                     int index = inventory.indexOf(inventoryItem);
                     inventory.set(index, item);
                 } else {

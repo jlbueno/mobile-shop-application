@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +17,6 @@ import com.example.mobileshopapp.models.ShopItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 
 public class Cart extends AppCompatActivity implements CartAdapter.CartClickListener {
@@ -46,7 +42,7 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         userCart = (ArrayList<ShopItem>) intent.getSerializableExtra("userCart");
         totalItemPrice = intent.getFloatExtra("totalItemPrice", 0);
 
-        deliveryInfo = new ArrayList();
+        deliveryInfo = new ArrayList<>();
         if(intent.hasExtra("deliveryInfo")) {
             deliveryInfo = intent.getStringArrayListExtra("deliveryInfo");
         }
@@ -61,24 +57,20 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         totalPrice.setText(String.format(Locale.ENGLISH, "Total: ₱ %.2f", totalItemPrice));
 
         Button checkout = findViewById(R.id.checkout);
-        checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if user has an item in their cart before checking out.
-                if (userCart.size() > 0) {
-                    Intent intent = new Intent(getApplicationContext(), DeliveryInformation.class);
+        checkout.setOnClickListener(v -> {
+            if (userCart.size() > 0) {
+                Intent intent1 = new Intent(getApplicationContext(), DeliveryInformation.class);
 
-                    intent.putExtra("userCart", userCart);
-                    intent.putExtra("totalItemPrice", totalItemPrice);
-                    if (deliveryInfo.size() > 0) {
-                        intent.putExtra("deliveryInfo", deliveryInfo);
-                    }
-
-                    startActivityForResult(intent, REQUEST_CODE);
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Your cart is empty", Toast.LENGTH_SHORT);
-                    toast.show();
+                intent1.putExtra("userCart", userCart);
+                intent1.putExtra("totalItemPrice", totalItemPrice);
+                if (deliveryInfo.size() > 0) {
+                    intent1.putExtra("deliveryInfo", deliveryInfo);
                 }
+
+                startActivityForResult(intent1, REQUEST_CODE);
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Your cart is empty", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
@@ -92,12 +84,8 @@ public class Cart extends AppCompatActivity implements CartAdapter.CartClickList
         }
     }
 
-    @Override
     public void removeFromCart(ShopItem item) {
         userCart.remove(item);
-        for(ShopItem mitem : userCart) {
-            System.out.println(String.format("%s: %d", mitem.getName(), mitem.getNumInCart()));
-        }
         updateTotalItemPrice();
     }
 

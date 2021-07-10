@@ -3,8 +3,8 @@ package com.example.mobileshopapp.models;
 import java.io.Serializable;
 
 public class ShopItem implements Serializable {
-    private String name;
-    private float price;
+    private final String name;
+    private final float price;
     private int numInCart;
     private String url;
 
@@ -27,6 +27,10 @@ public class ShopItem implements Serializable {
 
     public void setNumInCart(Integer numInCart) {
         this.numInCart = numInCart;
+    }
+
+    public void setThumbnail(String url) {
+        this.url = url;
     }
 
     public String getThumbnail() {

@@ -18,22 +18,17 @@ import java.util.ArrayList;
 
 public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopViewHolder> {
 
-    private ArrayList<Shop> shopList;
-    private ShopListClickListener shopListClickListener;
+    private final ArrayList<Shop> shopList;
+    private final ShopListClickListener  shopListClickListener;
 
     public ShopListAdapter(ArrayList<Shop> shopList, ShopListClickListener shopListClickListener) {
         this.shopList = shopList;
         this.shopListClickListener = shopListClickListener;
     }
 
-    public void updateShopList(ArrayList<Shop> shopList) {
-        this.shopList = shopList;
-        notifyDataSetChanged();
-    }
-
     static class ShopViewHolder extends RecyclerView.ViewHolder {
         TextView shopName;
-        private ImageView shopThumbnail;
+        private final ImageView shopThumbnail;
 
         public ShopViewHolder(View view) {
             super(view);
@@ -43,7 +38,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
     }
 
     public interface ShopListClickListener {
-        public void onItemClick(Shop shop);
+        void onItemClick(Shop shop);
     }
 
     @NonNull
@@ -60,12 +55,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ShopVi
 
         Glide.with(holder.shopThumbnail).load(shopList.get(position).getThumbnail()).into(holder.shopThumbnail);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopListClickListener.onItemClick(shopList.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(view -> shopListClickListener.onItemClick(shopList.get(position)));
     }
 
 

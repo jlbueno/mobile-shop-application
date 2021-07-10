@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder> {
 
-    private ArrayList<ShopItem> inventory;
+    private final ArrayList<ShopItem> inventory;
     private final InventoryClickListener inventoryClickListener;
 
     public InventoryAdapter(ArrayList<ShopItem> inventory, InventoryClickListener inventoryClickListener) {
@@ -83,50 +83,39 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
             holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
         }
 
-        holder.addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopItem item = inventory.get(position);
-                item.setNumInCart(1);
-                inventoryClickListener.addToCart(item);
+        holder.addToCart.setOnClickListener(view -> {
+            ShopItem item1 = inventory.get(position);
+            item1.setNumInCart(1);
+            inventoryClickListener.addToCart(item1);
 
-                holder.quantityControl.setVisibility(View.VISIBLE);
-                holder.addToCart.setVisibility(View.GONE);
-                holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
+            holder.quantityControl.setVisibility(View.VISIBLE);
+            holder.addToCart.setVisibility(View.GONE);
+            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item1.getNumInCart()));
+        });
+
+        holder.decrementCount.setOnClickListener(view -> {
+            ShopItem item12 = inventory.get(position);
+            int numInCart = item12.getNumInCart();
+            if (numInCart == 1) {
+                item12.setNumInCart(0);
+                inventoryClickListener.removeFromCart(item12);
+
+                holder.quantityControl.setVisibility(View.GONE);
+                holder.addToCart.setVisibility(View.VISIBLE);
+            } else {
+                item12.setNumInCart(numInCart - 1);
+                inventoryClickListener.updateCart(item12);
+
+                holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item12.getNumInCart()));
             }
         });
 
-        holder.decrementCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopItem item = inventory.get(position);
-                int numInCart = item.getNumInCart();
-                if (numInCart == 1) {
-                    // Remove item from cart.
-                    item.setNumInCart(0);
-                    inventoryClickListener.removeFromCart(item);
+        holder.incrementCount.setOnClickListener(view -> {
+            ShopItem item13 = inventory.get(position);
+            item13.setNumInCart(item13.getNumInCart() + 1);
+            inventoryClickListener.updateCart(item13);
 
-                    holder.quantityControl.setVisibility(View.GONE);
-                    holder.addToCart.setVisibility(View.VISIBLE);
-                } else {
-                    // Decrement count
-                    item.setNumInCart(numInCart - 1);
-                    inventoryClickListener.updateCart(item);
-
-                    holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
-                }
-            }
-        });
-
-        holder.incrementCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShopItem item = inventory.get(position);
-                item.setNumInCart(item.getNumInCart() + 1);
-                inventoryClickListener.updateCart(item);
-
-                holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item.getNumInCart()));
-            }
+            holder.currentQuantity.setText(String.format(Locale.ENGLISH, "%d", item13.getNumInCart()));
         });
 
 

@@ -55,30 +55,24 @@ public class DeliveryInformation extends AppCompatActivity {
 
         }
 
-        checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (areRelevantFieldsFilled()) {
-                    // Change this with implementation for Checkout logic.
-                    Toast toast = Toast.makeText(getApplicationContext(), "Successfully checked out!", Toast.LENGTH_SHORT);
-                    toast.show();
+        checkout.setOnClickListener(v -> {
+            if (areRelevantFieldsFilled()) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Successfully checked out!", Toast.LENGTH_SHORT);
+                toast.show();
 
-                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                    startActivity(intent);
-                }
-
+                Intent intent1 = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(intent1);
             }
+
         });
     }
 
     private boolean areRelevantFieldsFilled() {
-        // Check if the relevant fields are filled out.
         if (TextUtils.isEmpty(fullName.getText())) {
             promptUser("Full name");
             return false;
         }
 
-        // Add check for number format.
         if (TextUtils.isEmpty(contactNumber.getText())) {
             promptUser("Contact number");
             return false;
